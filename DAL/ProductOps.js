@@ -34,7 +34,6 @@ async function deleteProduct(productID){
   return product;
 }
 
-
 async function review(id, params)
 {
   const product = await Product.findById(id);
@@ -65,12 +64,43 @@ async function deleteProduct(id)
   }
 }
 
+async function updateProduct(id, params)
+{
+  const productId = id;
+  const product = await Product.findById(productId);
+  if(product)
+  {
+    product.SKU         = params.SKU;
+    product.Title       = params.Title;
+    product.Description = params.Description;
+    product.imageURL    = params.imageURL;
+    product.stock       = params.stock;
+    product.VideoURL    = params.VideoURL;
+    product.Brand       = params.Brand;
+    product.Weight      = params.Weight;
+    product.Dimension   = params.Dimension;
+    product.Sales       = params.Sales;
+    product.Rate        = params.Rate;
+    product.Discount    = params.Discount;
+    product.Ratings     = params.Ratings;
+    product.minStockAlert     = params.minStockAlert;
+    product.parentCategory_ID = params.parentCategory_ID;
+    product.SubCategory1_ID   = params.SubCategory1_ID;
+    product.SubCategory2_ID   = params.SubCategory2_ID;
+    product.productSpec       = params.productSpec;
+    product.reviews           = params.reviews;
+  }
+  const updatedProduct = await product.save().catch((err)=>{
+    return err;
+  });
+  if(updatedProduct)
+  {
+    return updatedProduct; 
+  }
+}
 
-// async function findProductbyName(productName){
-//   product.title;
-// }
-
-module.exports.addProduct = addProduct;
-module.exports.deleteProduct = deleteProduct;
-module.exports.review = review;
-module.exports.deleteProduct = deleteProduct;
+module.exports.addProduct     = addProduct;
+module.exports.deleteProduct  = deleteProduct;
+module.exports.review         = review;
+module.exports.deleteProduct  = deleteProduct;
+module.exports.updateProduct  = updateProduct;
