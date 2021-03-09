@@ -10,6 +10,10 @@ const clientSchema = new db.mongoose.Schema ({
     required: true,
     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
+  profile: {
+    name: { type: String, default: ''},
+    picture: { type: String, default: ''}
+  },
   password  : String,
   StoreName : String,
   CorporateAddress  : String,
