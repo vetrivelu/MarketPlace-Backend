@@ -20,7 +20,6 @@ router.post('/register', async(req, res)=>{
         res.status(500).send(code);
     }
 });
-
 router.post('/sign_in', async(req, res)=>{
     var user = await Client.signIn(req.body);
     if(user.id)

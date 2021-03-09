@@ -1,68 +1,53 @@
+const Category = require('../models/category');
+const Parent    =   Category.parentCategory;
+const Child     =   Category.childCategory;
+const GrandChild=   Category.childCategory;
 
-async function addParentCategory(cat)
+async function addParentCategory(params)
 {
-    let catObject = { Name  :   cat.Name}
-    cat = await ParentCategory.create(catObject).catch((error)=>{
-        let err = {
-            code    :   error.parent.code,
-            message :   error.message,
-        }
-        console.log(error.errors);
-        return err;
-    })
-    return cat;
+    const category = new Parent({
+        name    :   params.name,
+    });
+    const new_category = category.save();
+    if(new_category){
+        return new_category;
+    }
+    return "error";
 }
 
-async function addSubCategory1 (cat)
+async function addChildCategory (params)
 {
-    var catObject = {
-        Name    :   cat.Name,
-        parentCategory_ID   :   cat.parentCategory_ID,
+    const category = new Child({
+        name    :   params.name,
+        parent  :   params.parent,
+    });
+    const new_category = category.save();
+    if(new_category){
+        return new_category;
     }
-    cat = await subcategory1.create(catObject).catch((error)=>{
-        let err = {
-            code    :   error.parent.code,
-            message :   error.message,
-        }
-        console.log(error.errors);
-        return err;
-        })
-    return cat;
+    return "error";
 }
 
-async function addSubCategory2(cat)
+async function addGrandChildCategory(params)
 {
-    let catObject = {
-        Name    :   cat.Name,
-        SubCategory1_ID :   cat.SubCategory1_ID,
-        ParentCategory_ID   :   cat.ParentCategory_ID,
+    const category = new GrandChild({
+        name    :   params.name,
+        parent  :   params.parent,
+    });
+    const new_category = category.save();
+    if(new_category){
+        return new_category;
     }
-    cat = await subcategory2.create(catObject).catch((error)=>{
-        let err = {
-            code    :   error.parent.code,
-            message :   error.message,
-        }
-        console.log(error.errors);
-        return err;
-})
-return cat;
-
+    return "error";
 }
 
 async function getParentCategory(id)
 {
-    var cat;
-    if(id){
-        cat = await ParentCategory.findByPk(id);
-    } else{
-        cat = await ParentCategory.findAll();
-    }
-//----------------------------------------------
-    if(cat === null) {
-        console.log("No such Category");
-    } else {
-        return cat;
-    }
+    const ParentCategories = await Parent.find({}).catch((err)=>
+    {
+        return err;
+    })
+    return ParentCategories;
 }
 
 async function getChildCategory(id)
@@ -89,9 +74,9 @@ async function getGrandChildCategory(id)
 }
 
 
-module.exports.addParentCategory    = addParentCategory;
-module.exports.addSubCategory1      = addSubCategory1;
-module.exports.addSubCategory2      = addSubCategory2;
-module.exports.getParentCategory      = getParentCategory;
+module.exports.addParentCategory     = addParentCategory;
+module.exports.addChildCategory      = addChildCategory;
+module.exports.addGrandChildCategory = addGrandChildCategory;
+module.exports.getParentCategory     = getParentCategory;
 module.exports.getChildCategory      = getChildCategory;
-module.exports.getGrandChildCategory      = getGrandChildCategory;
+module.exports.getGrandChildCategory = getGrandChildCategory;

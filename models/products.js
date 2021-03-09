@@ -3,10 +3,10 @@ const db = require('../DAL/Connection');
 
 const reviewSchema = new db.mongoose.Schema(
   {
-    name: { type: String, required: true },
-    rating: { type: Number, default: 0 },
-    comment: { type: String, required: true },
-    date  : {type: Date, default: Date.now()}
+    name    : { type: String, required: true },
+    rating  : { type: Number, default: 0 },
+    comment : { type: String, required: true },
+    date    : {type: Date, default: Date.now()}
   },
   {
     timestamps: false,
@@ -23,7 +23,7 @@ const productSchema = new db.mongoose.Schema({
     VideoURL  : String,
     Brand     : String,
     Weight    : Number,
-    Dimension : [{type : Number, type:Number, type: Number} ],
+    Dimension : {length:  Number, width : Number, height  : Number},
     Sales     : { type: Number, default : 0 },
     Rate      : { type: Number, default : 0,},
     Discount  : { type: Number, default : 0,},

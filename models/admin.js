@@ -1,11 +1,11 @@
 const db = require('../DAL/Connection');
 
 const adminSchema = new db.mongoose.Schema({
-  _id : Number,
+  _id   : Number,
   name  : String,
-  Email: { 
+  Email : { 
     type: String, 
-    unique: true,
+    unique  : true,
     required: true,
     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
   },
@@ -16,7 +16,7 @@ const adminSchema = new db.mongoose.Schema({
   StartDate : Date,
   EndDate : Date,
   isAdmin : { type  : Boolean, default  : true },
-},{_id: false})
+},{_id: false});
 adminSchema.plugin(db.AutoIncrement);
 
 module.exports  = db.mongoose.model('Admin', adminSchema);

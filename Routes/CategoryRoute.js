@@ -4,7 +4,7 @@ const Category = require('../DAL/CategoryOps');
 const UserCheck = require('../Midddleware/AuthMiddleware');
 const AdminCheck = require('../Midddleware/AdminMiddleware');
 
-router.post('/addParent',AdminCheck, async(req, res)=>{
+router.post('/parent',AdminCheck, async(req, res)=>{
     var cat = await Category.addParentCategory(req.body)
     if(cat.Name)
     {
@@ -20,7 +20,7 @@ router.post('/addParent',AdminCheck, async(req, res)=>{
     }
 });
 
-router.post('/addChild',AdminCheck,async(req, res)=>{
+router.post('/child',AdminCheck,async(req, res)=>{
     var cat = await Category.addSubCategory1(req.body)
     if(cat.Name)
     {
@@ -36,7 +36,7 @@ router.post('/addChild',AdminCheck,async(req, res)=>{
     }
 });
 
-router.post('/addGrandChild/:child:/parent',AdminCheck,async(req, res)=>{
+router.post('/grandChild/:child:/parent',AdminCheck,async(req, res)=>{
     var cat = await Category.addSubCategory2(req.body)
     if(cat.Name)
     {
@@ -52,27 +52,41 @@ router.post('/addGrandChild/:child:/parent',AdminCheck,async(req, res)=>{
     }
 });
 
-router.get('/getParent/:id', UserCheck, async(req,res)=>
+router.get('/parent/:id', UserCheck, async(req,res)=>
 {
     let cat = await Category.getParentCategory(req.params.id);
     res.status(200).send(cat);
-})
-router.get('/getParent', UserCheck, async(req,res)=>
-{
-    let cat = await Category.getParentCategory(req.params.id);
-    res.status(200).send(cat);
-})
+});
 
-router.get('/getChild/:id', UserCheck, async(req,res)=>
+router.get('/child', UserCheck, async(req,res)=>
+{
+    let cat = await Category.getParentCategory(req.params.id);
+    res.status(200).send(cat);
+});
+
+router.get('/grandchild/:id', UserCheck, async(req,res)=>
 {
     let cat = await Category.getChildCategory(req.params.id);
     res.status(200).send(cat);
-})
-router.get('/getGrandChild/:id',UserCheck, async(req,res)=>
+});
+
+router.delete('/parent/:id',UserCheck, async(req,res)=>
 {
     let cat = await Category.getGrandChildCategory(req.params.id);
     res.status(200).send(cat);
-})
+});
+
+router.delete('/child/:id',UserCheck, async(req,res)=>
+{
+    let cat = await Category.getGrandChildCategory(req.params.id);
+    res.status(200).send(cat);
+});
+
+router.delete('/grandChild/:id',UserCheck, async(req,res)=>
+{
+    let cat = await Category.getGrandChildCategory(req.params.id);
+    res.status(200).send(cat);
+});
 
 
 module.exports = router;

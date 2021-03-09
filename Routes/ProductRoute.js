@@ -33,9 +33,9 @@ router.post('/:id/reviews', async (req, res) => {
     } else {
       res.status(404).send({ message: 'Product Not Found' });
     }
-  });
+});
 
-  router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     const deletedProduct = await Product.deleteProduct(req.params.id);
     if (deletedProduct) {
       await deletedProduct.remove();
@@ -43,8 +43,17 @@ router.post('/:id/reviews', async (req, res) => {
     } else {
       res.send('Error in Deletion.');
     }
-  });
+});
 
+router.put('/:id', async (req, res) => {
+  const updatedProduct = await Product.updateProduct(req.params.id);
+  if (updatedProduct) {
+    await updatedProduct.remove();
+    res.send({ message: 'Product Updated' });
+  } else {
+    res.send('Error Updating product.');
+  }
+});
 
 
 module.exports = router;

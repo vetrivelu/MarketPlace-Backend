@@ -19,7 +19,6 @@ router.post('/create', async(req, res)=>{
     }
 
 });
-
 router.post('/cancel/:id', async(req, res)=>{
     console.log("Endpoin hit");
     var order = await cancelOrder(req.params.id); 
@@ -35,6 +34,5 @@ router.post('/cancel/:id', async(req, res)=>{
     }
 
 });
-
 
 module.exports = router;

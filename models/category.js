@@ -1,14 +1,26 @@
-const mongoose = require('mongoose');
+const db = require('../DAL/Connection');
 
-const categorySchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+const parentCategorySchema = db.mongoose.Schema({
     name: { type: String, required: true },
-    slug: { type: String, unique: true },
-    parent: { type: String },
-    createdAt: Date,
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
-    updatedAt: Date,
-    updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' }
 });
 
-module.exports = mongoose.model('Category', categorySchema);
+const childCategorySchema = db.mongoose.Schema({
+    name: { type: String, required: true },
+    parent:  { type: db.mongoose.Schema.Types.ObjectId, ref: 'parentCategory'},
+});
+
+const grandChildCategory = db.mongoose.Schema({
+    name: { type: String, required: true },
+    parent:  { type: db.mongoose.Schema.Types.ObjectId, ref: 'childCategory'},
+});
+
+parentCategory      = db.mongoose.model('parentCategory', categorySchema);
+childCategory       = db.mongoose.model('childCategory', categorySchema);
+grandChildCategory  = db.mongoose.model('grandChildCategory', categorySchema);
+
+module.exports = 
+{
+    parentCategory      :   parentCategory,
+    childCategory       :   childCategory,
+    grandChildCategory  :   grandChildCategory,
+}
