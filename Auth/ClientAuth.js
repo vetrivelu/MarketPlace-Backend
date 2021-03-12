@@ -3,32 +3,51 @@ const JWT = require('jsonwebtoken');
 const jwtConfig = require('../config/jwt-config');
 const Client = require('../models/client');
 
-async function register(params)
+async function register(params, image)
 {
     params.password = bcrypt.hashSync(params.password, 5);
     let newClient = new Client(params);
-    let result = newClient.save();
-    return result;
+    newClient.proof = {
+        data      : image.buffer,
+        name      : image.originalname,
+        encoding  : image.encoding,
+        type      : image.mimetype,
+    }
+    try
+    { 
+        let result = await newClient.save();
+        return result;
+    }catch(err)
+    {
+        if(err.code == 11000)
+        {
+            return "DUPL_USER";
+        }
+    }
 }
+
 
 async function signIn(params)
 {  
-    var client = await Client.findOne({
-        where   : {
-            Email : params.Email,
-        }}).catch((err)=>{
-            console.log(err.message, err);
-            return err;      
-        });
+    const filter = { email   :   params.email };
+    var client = await Client.findOne(filter, (err, client)=>{
+        if(err)
+        {
+            return err;
+        }
+    });
+        // .catch((err)=>{
+        //     console.log(err.message, err);
+        //     return err;      
+        // });
     if(client)
     {
-        if(bcrypt.compareSync(params.Password, client.Password))
+        if(bcrypt.compareSync(params.password, client.password))
         {
             console.log("Password matched");
             let userToken = JWT.sign({
-                Email   :   client.Email,
-                ID      :   client.ID,
-                // isApproved  :   client.IsApproved,
+                email   :   client.email,
+                id      :   client.id,
                 isAdmin :   false,
             },
             jwtConfig.ClientSecret,
@@ -37,14 +56,14 @@ async function signIn(params)
             });
             
             return ({
-                   id           :   client.ID,
-                   name         :   client.Name,
-                   PhoneNumber  :   client.PhoneNumber,
-                   StoreName    :   client.StoreName,
-                   CorporateAddress :   client['Corporate Address'],
-                   WalletAmount :   client['Wallet Amount'],
-                   TotalSales   :   client['TotalSales amount'],
-                   TotalOrder   :   client['Total Order'],
+                   id           :   client.id,
+                   name         :   client.name,
+                   phoneNumber  :   client.phoneNumber,
+                   storeName    :   client.storeName,
+                   corporateAddress :   client.corporateAddress,
+                   walletAmount :   client.walletAmount,
+                   totalSales   :   client.totalSales,
+                   totalOrder   :   client.totalOrder,
                    isApproved   :   client.IsApproved,
                    userToken    :   userToken,      
                    expiresIn    :   1800,
@@ -62,6 +81,24 @@ async function signIn(params)
     }
 }
 
+// async function uploadProof(image, id)
+// {
+//     const filter = { ClientID : id };
+//     const update = { 
+//         proof       : image.buffer,
+//     };
+//     try
+//     {
+//         let client = Client.findOneAndUpdate(filter, update);
+//         return client;
+//     }
+//     catch(err)
+//     {
+//         console.log(err);
+//         return err;
+//     }
+
+// }
 
 module.exports.signIn = signIn;
 module.exports.register = register;

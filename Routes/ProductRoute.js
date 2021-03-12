@@ -9,13 +9,8 @@ router.post('/', async(req, res)=>{
     var product = await Product.addProduct(req.body);
     if(product._id)
     {
-        console.log("Successful User Registration");
-        res.status(200).send("User Registration Successfull");
-    }
-    else if (product == "DUPL_USER")
-    {
-        console.log("Duplicate user");
-        res.status(409).send("Duplicate resgistration attempt");
+        console.log("Product Registered");
+        res.status(200).send(product);
     }
     else
     {
@@ -46,7 +41,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const updatedProduct = await Product.updateProduct(req.params.id);
+  const updatedProduct = await Product.updateProduct(req.body,req.params.id);
   if (updatedProduct) {
     await updatedProduct.remove();
     res.send({ message: 'Product Updated' });

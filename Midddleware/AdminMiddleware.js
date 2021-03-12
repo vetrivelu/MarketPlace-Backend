@@ -11,7 +11,9 @@ module.exports = function (req, res, next) {
         JWT.verify(userToken,jwtConfig.AdminSecret,(err, decoded)=>{
             if(err) {
                 error = err;
-                return res.status(500).json(err.message);
+                req.user.isAdmin = false;
+                next();
+                // return res.status(500).json(err.message);
             }
             else {
                 req.user = decoded;

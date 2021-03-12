@@ -4,22 +4,30 @@ const JWT = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
     let userToken = req.headers["authorization"]; 
-    var error;
     if(userToken)
     {   
-        //verify if client
-        JWT.verify(userToken,jwtConfig.ClientSecret,(err, decoded)=>{
-            if(err) {
-                error = err;
-                return res.status(500).json(err.message);
-            }
-            else {
+        try
+        {
+            var decoded = jwt.verify(userToken, jwtConfig.ClientSecret);
+            if(decoded.id)
+            {
                 req.user = decoded;
-                console.log(req.user);
                 next();
             }
-            
-        });
+            else
+            {
+                var decoded = jwt.verify(userToken, jwtConfig.AdminSecret);
+                if(decoded.id && decoded.isAdmin)
+                {
+                    req.user = decoded;
+                    next();
+                }
+            }   
+        }
+        catch (error)
+        {
+            res.status(500).json(error);
+        }
                  
     }
     else

@@ -17,7 +17,8 @@ async function createOrder(params)
     tax                 : params.tax,
     amountBeforeTax     : params.amountBeforeTax,
     total               : params.total,
-    })
+    transactionID       : params.transactionID
+    });
     let new_order = order.save((err)=>{
         return err;
     })
@@ -30,8 +31,8 @@ async function createOrder(params)
 
 async function cancelOrder(orderID)
 {
-    var filter = {orderID : orderID}
-    var update = {status : 'Cancelled'}
+    var filter = {orderID : orderID};
+    var update = {status : 'Cancelled'};
     let order = await Order.findOneAndUpdate(filter, update, {new : true});
     let new_order = order.save((err)=>{
         return err;
@@ -40,12 +41,43 @@ async function cancelOrder(orderID)
     {
           return new_order; 
     }
-    return "ERROR"
+    return "ERROR";
 }
 
-asy
+async function approveOrder(orderID)
+{
+    var filter = {orderID : orderID};
+    var update = {status : 'Approved'};
+    let order = await Order.findOneAndUpdate(filter, update, {new : true});
+    let new_order = order.save((err)=>{
+        return err;
+    })
+    if(new_order.orderID)
+    {
+          return new_order; 
+    }
+    return "ERROR";
+}
+
+async function moveToCart(orderID)
+{
+    var filter = {orderID : orderID};
+    var update = {status : 'Approved'};
+    let order = await Order.findOneAndUpdate(filter, update, {new : true});
+    let new_order = order.save((err)=>{
+        return err;
+    })
+    if(new_order.orderID)
+    {
+          return new_order; 
+    }
+    return "ERROR";
+}
+
+
 modules.export.createOrder = createOrder;
 modules.export.cancelOrder = cancelOrder;
+modules.export.approveOrder = approveOrder;
 
 
 

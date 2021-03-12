@@ -9,14 +9,14 @@ const childCategorySchema = db.mongoose.Schema({
     parent:  { type: db.mongoose.Schema.Types.ObjectId, ref: 'parentCategory'},
 });
 
-const grandChildCategory = db.mongoose.Schema({
+const grandChildCategorySchema = db.mongoose.Schema({
     name: { type: String, required: true },
     parent:  { type: db.mongoose.Schema.Types.ObjectId, ref: 'childCategory'},
 });
 
-parentCategory      = db.mongoose.model('parentCategory', categorySchema);
-childCategory       = db.mongoose.model('childCategory', categorySchema);
-grandChildCategory  = db.mongoose.model('grandChildCategory', categorySchema);
+parentCategory      = db.mongoose.model('parentCategory', parentCategorySchema);
+childCategory       = db.mongoose.model('childCategory', childCategorySchema);
+grandChildCategory  = db.mongoose.model('grandChildCategory', grandChildCategorySchema);
 
 module.exports = 
 {

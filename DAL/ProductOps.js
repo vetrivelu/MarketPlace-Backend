@@ -1,24 +1,26 @@
+const { findOneAndUpdate } = require('../models/products');
 const Product = require('../models/products');
 
 async function addProduct(params)
 {
     const product = new Product({
-      SKU       : params.SKU,
-      Title     : params.Title,
-      Description: params.Description,
-      imageURL  : params.imageURL,
-      VideoURL  : params.VideoURL,
-      Brand     : params.Brand,
-      Weight    : params.Weight,
-      Dimension : params.Dimension,
-      Sales     : params.Sales,
-      Rate      : params.Rate,
-      Discount  : params.Discount,
-      Ratings   : params.Ratings,
-      parentCategory_ID : params.parentCategory_ID,
-      SubCategory1_ID   : params.SubCategory1_ID,
-      SubCategory2_ID   : params.SubCategory2_ID,
-      productSpec : params.productSpec
+    sku                 : params.sku,
+    title               : params.title,
+    description         : params.description,
+    stock               : params.stock,
+    minStockAlert       : params.minStockAlert,
+    imageURL            : params.imageURL,
+    videoURL            : params.videoURL,
+    brand               : params.brand,
+    weight              : params.weight,
+    dimension           : params.dimension,
+    rate                : params.rate,
+    discount            : params.discount,
+    parentCategory      : params.parentCategory,
+    childCategory       : params.childCategory,
+    grandchildCategory  : params.grandchildCategory,
+    productSpec         : params.productSpec,
+    tags                : params.tags
     });
     const newProduct = await product.save().catch((err) =>{
         return err;
@@ -39,6 +41,7 @@ async function review(id, params)
   const product = await Product.findById(id);
     if (product) {
       const review = {
+        clientID : params.clientID,
         name: params.name,
         rating: Number(params.rating),
         comment: params.comment,
@@ -64,43 +67,20 @@ async function deleteProduct(id)
   }
 }
 
-async function updateProduct(id, params)
+async function updateProduct(update, id)
 {
-  const productId = id;
-  const product = await Product.findById(productId);
-  if(product)
-  {
-    product.SKU         = params.SKU;
-    product.Title       = params.Title;
-    product.Description = params.Description;
-    product.imageURL    = params.imageURL;
-    product.stock       = params.stock;
-    product.VideoURL    = params.VideoURL;
-    product.Brand       = params.Brand;
-    product.Weight      = params.Weight;
-    product.Dimension   = params.Dimension;
-    product.Sales       = params.Sales;
-    product.Rate        = params.Rate;
-    product.Discount    = params.Discount;
-    product.Ratings     = params.Ratings;
-    product.minStockAlert     = params.minStockAlert;
-    product.parentCategory_ID = params.parentCategory_ID;
-    product.SubCategory1_ID   = params.SubCategory1_ID;
-    product.SubCategory2_ID   = params.SubCategory2_ID;
-    product.productSpec       = params.productSpec;
-    product.reviews           = params.reviews;
-  }
-  const updatedProduct = await product.save().catch((err)=>{
-    return err;
-  });
+  let updatedProduct  = await Product.findByIdAndUpdate(id, update);
   if(updatedProduct)
   {
     return updatedProduct; 
   }
 }
 
+
 module.exports.addProduct     = addProduct;
 module.exports.deleteProduct  = deleteProduct;
 module.exports.review         = review;
 module.exports.deleteProduct  = deleteProduct;
 module.exports.updateProduct  = updateProduct;
+
+//getProduct/0, getProdcut/7, 
