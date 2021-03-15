@@ -43,9 +43,42 @@ async function cancelOrder(orderID)
     return "ERROR"
 }
 
+async function pendingOrder(orderID)
+{
+    var filter = {orderID : orderID}
+    var update = {status : 'pending'}
+    let order = await Order.findOneAndUpdate(filter, update, {new : true});
+    let new_order = order.save((err)=>{
+        return err;
+    })
+    if(new_order.orderID)
+    {
+          return new_order; 
+    }
+    return "ERROR"
+}
+
+async function approveOrder(orderID)
+{
+    var filter = {orderID : orderID}
+    var update = {status : 'Approved'}
+    let order = await Order.findOneAndUpdate(filter, update, {new : true});
+    let new_order = order.save((err)=>{
+        return err;
+    })
+    if(new_order.orderID)
+    {
+          return new_order; 
+    }
+    return "ERROR"
+}
+
+
 asy
 modules.export.createOrder = createOrder;
 modules.export.cancelOrder = cancelOrder;
+modules.export.pendingOrder = pendingOrder;
+modules.export.approveOrder = approveOrder;
 
 
 

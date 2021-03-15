@@ -53,6 +53,17 @@ async function review(id, params)
     }
 }
 
+async function getProduct(id)
+{
+  const AvailProduct = await Product.findById(id).catch((err)=>{
+    return err;
+  })
+  if(getProduct)
+  {
+    return AvailProduct;
+  }
+}
+
 async function deleteProduct(id)
 {
   const deletedProduct = await Product.findById(id).catch((err)=>{
@@ -103,4 +114,5 @@ module.exports.addProduct     = addProduct;
 module.exports.deleteProduct  = deleteProduct;
 module.exports.review         = review;
 module.exports.deleteProduct  = deleteProduct;
+module.exports.getProduct     = getProduct;
 module.exports.updateProduct  = updateProduct;
