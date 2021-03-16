@@ -1,6 +1,5 @@
  
 
-connectionString = 'mongodb+srv://test:test123@cluster0.pdizh.mongodb.net/MarketPlace?retryWrites=true&w=majority';
-
+connectionString = 'mongodb+srv://test1:test123@cluster0.hujzf.mongodb.net/marketplace?retryWrites=true&w=majorityost/marketplace'; 
 module.exports = connectionString;
 

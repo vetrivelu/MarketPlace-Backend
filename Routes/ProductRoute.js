@@ -30,6 +30,15 @@ router.post('/:id/reviews', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+  const AvailProduct = await Product.getProduct(req.params.id);
+  if (AvailProduct) {
+    await AvailProduct.view();
+  } else {
+    res.send('Try again with another name.');
+  }
+});
+
 router.delete('/:id', async (req, res) => {
     const deletedProduct = await Product.deleteProduct(req.params.id);
     if (deletedProduct) {

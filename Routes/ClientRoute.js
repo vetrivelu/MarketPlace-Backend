@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express   = require('express');
 const router    = express.Router();
 const Client    = require('../Auth/ClientAuth');
@@ -10,6 +11,14 @@ var type    = upload.single('proof');
 
 
 router.post('/register', type, async(req, res)=>{
+=======
+const express = require('express');
+const router = express.Router();
+const Client     = require('../Auth/ClientAuth');
+var User = require('../models/client');
+
+
+>>>>>>> origin/DevRazor
 
     console.log("Endpoin hit");
     var code = await Client.register(req.body, req.file);
@@ -50,11 +59,30 @@ router.post('/sign_in', async(req, res)=>{
     }
 });
 
+<<<<<<< HEAD
 router.post('/cart/', async(req, res)=>{
     
 });
 
 
+=======
+  router.get('/edit-profile', function(req, res, next) {
+    res.render('accounts/edit-profile', { message: req.flash('success')});
+  });
+  
+  router.post('/edit-profile', function(req, res, next) {
+    User.findOne({ _id: req.user._id }, function(err, user) {
+  
+      if (err) return next(err);
+  
+      user.save(function(err) {
+        if (err) return next(err);
+        req.flash('success', 'Successfully Edited your profile');
+        return res.redirect('/edit-profile');
+      });
+    });
+  });
+>>>>>>> origin/DevRazor
 
 module.exports = router;
 
