@@ -59,17 +59,10 @@ async function approveOrder(orderID)
     return "ERROR";
 }
 
-<<<<<<< HEAD
-async function moveToCart(orderID)
-{
-    var filter = {orderID : orderID};
-    var update = {status : 'Approved'};
-=======
 async function pendingOrder(orderID)
 {
     var filter = {orderID : orderID}
     var update = {status : 'pending'}
->>>>>>> origin/DevRazor
     let order = await Order.findOneAndUpdate(filter, update, {new : true});
     let new_order = order.save((err)=>{
         return err;
@@ -78,15 +71,7 @@ async function pendingOrder(orderID)
     {
           return new_order; 
     }
-<<<<<<< HEAD
     return "ERROR";
-}
-
-
-modules.export.createOrder = createOrder;
-modules.export.cancelOrder = cancelOrder;
-=======
-    return "ERROR"
 }
 
 async function approveOrder(orderID)
@@ -101,7 +86,7 @@ async function approveOrder(orderID)
     {
           return new_order; 
     }
-    return "ERROR"
+    return "ERROR";
 }
 
 
@@ -109,7 +94,6 @@ asy
 modules.export.createOrder = createOrder;
 modules.export.cancelOrder = cancelOrder;
 modules.export.pendingOrder = pendingOrder;
->>>>>>> origin/DevRazor
 modules.export.approveOrder = approveOrder;
 
 

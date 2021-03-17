@@ -93,6 +93,7 @@ router.post('/refund', async (req, res) => {
         console.log(error);
         res.status(400).send('Unable to refund the payment');
     }
-})
+});
 
 module.exports = router;
+

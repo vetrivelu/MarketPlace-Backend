@@ -15,7 +15,7 @@ const specSchema = new db.mongoose.Schema(
 
 const reviewSchema = new db.mongoose.Schema(
   {
-    clientID  : { type: Number, required: true, unique :true },
+    clientID  : { type: Number, required: true},
     name    : { type: String, required: true },
     rating  : { type: Number, default: 0 },
     comment : { type: String, required: true },

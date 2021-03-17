@@ -33,9 +33,9 @@ router.post('/:id/reviews', async (req, res) => {
 router.get('/:id', async (req, res) => {
   const AvailProduct = await Product.getProduct(req.params.id);
   if (AvailProduct) {
-    await AvailProduct.view();
+    res.send(AvailProduct);
   } else {
-    res.send('Try again with another name.');
+    res.send('Product could not be loaded');
   }
 });
 
@@ -60,3 +60,4 @@ router.put('/:id', async (req, res) => {
 });
 
 module.exports = router;
+

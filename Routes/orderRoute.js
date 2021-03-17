@@ -34,7 +34,6 @@ router.post('/cancel/:id', async(req, res)=>{
     }
 
 });
-
 router.post('/pending/:id', async(req, res)=>{
     console.log("Endpoin hit");
     var order = await pendingOrder(req.params.id); 
@@ -50,7 +49,6 @@ router.post('/pending/:id', async(req, res)=>{
     }
 
 });
-
 router.post('/approve/:id', async(req, res)=>{
     console.log("Endpoin hit");
     var order = await approveOrder(req.params.id); 

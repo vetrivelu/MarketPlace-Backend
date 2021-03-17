@@ -24,6 +24,7 @@
     "multer-gridfs-storage": "^4.2.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "razorpay": "^2.0.6",
     "sequelize": "^6.5.0",
     "sequelize-auto": "^0.8.0",
     "stripe": "^8.138.0"

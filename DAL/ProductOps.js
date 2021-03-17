@@ -23,6 +23,7 @@ async function addProduct(params)
     tags                : params.tags
     });
     const newProduct = await product.save().catch((err) =>{
+      console.log(err);
         return err;
     });
     return newProduct;    
@@ -59,6 +60,7 @@ async function review(id, params)
 async function getProduct(id)
 {
   const AvailProduct = await Product.findById(id).catch((err)=>{
+    console.log(err);
     return err;
   })
   if(getProduct)

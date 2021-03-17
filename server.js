@@ -2,10 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const helmet    =   require('helmet');
-<<<<<<< HEAD
 const CartLength = require('./Midddleware/Cart');
-=======
->>>>>>> origin/DevRazor
 
 
 //route imports
