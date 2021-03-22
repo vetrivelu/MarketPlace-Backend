@@ -63,7 +63,7 @@ async function getProduct(id)
     console.log(err);
     return err;
   })
-  if(getProduct)
+  if(AvailProduct)
   {
     return AvailProduct;
   }

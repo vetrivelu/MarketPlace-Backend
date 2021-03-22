@@ -12,7 +12,7 @@ var type    = upload.single('proof');
 router.post('/register', type, async(req, res)=>{
 
     console.log("Endpoin hit");
-    var code = await Client.register(req.body, req.file);
+    var code = await Client.register(req.body);
     if(code._id)
     {
         console.log("Successful User Registration");

@@ -7,12 +7,12 @@ async function register(params, image)
 {
     params.password = bcrypt.hashSync(params.password, 5);
     let newClient = new Client(params);
-    newClient.proof = {
-        data      : image.buffer,
-        name      : image.originalname,
-        encoding  : image.encoding,
-        type      : image.mimetype,
-    }
+    // newClient.proof = {
+    //     data      : image.buffer,
+    //     name      : image.originalname,
+    //     encoding  : image.encoding,
+    //     type      : image.mimetype,
+    // }
     try
     { 
         let result = await newClient.save();

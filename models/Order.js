@@ -33,8 +33,12 @@ const shippingSchema = {
     client: { type: db.mongoose.Schema.Types.ObjectId, ref: 'Clients', required: true },
     orderItems  : [orderItemSchema],
     shipping    : shippingSchema,
-    payment     : paymentSchema,
     negotiation : negotiationSchema,
+    status      : {
+      type  : String,
+      enum  : ['PENDING APPROVAL','PENDING PAYMENT', 'APPROVED', 'CANCELLED'],
+      default : 'PENDING APPROVAL',
+    },
     itemsPrice  : { type: Number },
     taxPrice    : { type: Number },
     shippingPrice   : { type: Number },
@@ -43,8 +47,11 @@ const shippingSchema = {
     paidOn      : { type: Date },
     isDelivered : { type: Boolean, default: false },
     deliveredOn : { type: Date },
+    razorpay_payment_id : String,
+    razorpay_order_id   : String,
+    razorpay_signature  : String
   }, {
-    timestamps: true
+      timestamps: true
   });
 
 orderSchema.plugin(db.AutoIncrement, {inc_field : 'orderID'});
