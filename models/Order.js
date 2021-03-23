@@ -13,15 +13,13 @@ const shippingSchema = {
   };
   
   const orderItemSchema = new db.mongoose.Schema({
-    name: { type: String, required: true },
-    qty:    { type: Number, required: true },
-    image: { type: String, required: true },
-    price: { type: String, required: true },
     product: {
       type: db.mongoose.Schema.Types.ObjectId,
       ref: 'Product',
       required: true
     },
+    price: { type: String, required: true },
+    qty : {type : Number, default : 1}
   });
 
   const negotiationSchema = new db.mongoose.Schema({
@@ -39,14 +37,14 @@ const shippingSchema = {
       enum  : ['PENDING APPROVAL','PENDING PAYMENT', 'APPROVED', 'CANCELLED'],
       default : 'PENDING APPROVAL',
     },
-    itemsPrice  : { type: Number },
-    taxPrice    : { type: Number },
-    shippingPrice   : { type: Number },
-    totalPrice  : { type: Number },
+    taxPrice    : { type: Number, default : 0},
+    shippingPrice   : { type: Number, default : 0 },
+    totalPrice  : { type: Number, default : 0 },
     isPaid      : { type: Boolean, default: false },
     paidOn      : { type: Date },
     isDelivered : { type: Boolean, default: false },
     deliveredOn : { type: Date },
+    tracking_id : String,
     razorpay_payment_id : String,
     razorpay_order_id   : String,
     razorpay_signature  : String

@@ -25,7 +25,9 @@ app.use(bodyParser.json());
 app.use('/api/Auth/admin', require("./Routes/AdminRoute"));
 app.use('/api/Auth/client', require("./Routes/ClientRoute"));
 app.use('/api/cat', require("./Routes/CategoryRoute"));
+
 app.use('/api/product',require("./Routes/ProductRoute"));
+app.use('/api/order/', require("./Routes/orderRoute"));
 app.use("/payment", require("./routes/Razor"));
 // app.use("/paytm", require("./routes/Razor"));
 

@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Order = require('../DAL/ProductOps');
+const Order = require('../DAL/OrderOps');
 const isAdmin = require('../Midddleware/AdminMiddleware');
 const isClient  =   require('../Midddleware/AuthMiddleware');
 
 router.post('/create', async(req, res)=>{
     console.log("Endpoin hit");
-    var order = await createOrder(req.body); 
-    if(order.orderID)
+    var order = await Order.createOrder(req.body);
+    if(order.razorpay_order_id)
     {
         console.log("Success");
         res.status(200).send("Order created Succesfully");
