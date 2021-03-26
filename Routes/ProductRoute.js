@@ -30,6 +30,15 @@ router.post('/:id/reviews', async (req, res) => {
     }
 });
 
+router.post('/filter', async (req, res) => {
+  const AvailProducts = await Product.filterProduct(req.body);
+  if (AvailProducts) {
+    res.send(AvailProducts);
+  } else {
+    res.send('Product could not be loaded');
+  }
+});
+
 router.get('/:id', async (req, res) => {
   const AvailProduct = await Product.getProduct(req.params.id);
   if (AvailProduct) {
@@ -60,4 +69,3 @@ router.put('/:id', async (req, res) => {
 });
 
 module.exports = router;
-

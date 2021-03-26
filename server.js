@@ -5,10 +5,10 @@ const helmet    =   require('helmet');
 const CartLength = require('./Midddleware/Cart');
 const cors = require('cors');
 
-var corsOptions = {
-    origin: 'http://localhost:4000', 
-    optionsSuccessStatus: 200 // For legacy browser support
-}
+// var corsOptions = {
+//     origin: 'http://localhost:4000', 
+//     optionsSuccessStatus: 200 // For legacy browser support
+// }
 
 
 
@@ -17,7 +17,7 @@ var corsOptions = {
 
 const app = express();
 const port = 3000; 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(helmet());
 
 app.use(bodyParser.json());

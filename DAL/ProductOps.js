@@ -69,6 +69,15 @@ async function getProduct(id)
   }
 }
 
+async function filterProduct(params)
+{
+  const AvailProducts = await Product.find(params).catch((err)=>{
+    console.log(err);
+    return err;
+  });
+  return AvailProducts;
+}
+
 async function deleteProduct(id)
 {
   const deletedProduct = await Product.findById(id).catch((err)=>{
@@ -96,5 +105,6 @@ module.exports.review         = review;
 module.exports.deleteProduct  = deleteProduct;
 module.exports.getProduct     = getProduct;
 module.exports.updateProduct  = updateProduct;
+module.exports.filterProduct  = filterProduct;
 
 //getProduct/0, getProdcut/7, 
