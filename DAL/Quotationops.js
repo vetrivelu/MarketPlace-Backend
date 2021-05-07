@@ -94,7 +94,9 @@ async function getApprovedContractorInvoices()
     for(i=0;i<length;i++)
     {
             quotations[i].contractor_po.forEach(cpo => {
-                invoices.push(cpo.contractorInvoice);
+                cpo.contractorInvoice.forEach((invoice)=>{
+                        invoices.push(invoice);
+                });
             });
     }
     return invoices;
