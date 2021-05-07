@@ -72,7 +72,47 @@ async function getQuotation(id)
     }
 }
 
+async function getApprovedClientInvoices()
+{
+    let quotations = await getQuotation();
+    let length = quotations.length;
+    let invoices = [];
+
+    for(i=0;i<length;i++)
+    {
+        if(quotations[i].quoteApproval == 'APPROVED')
+        {
+            quotations[i].client_invoice.forEach((invoice) => {
+                    invoices.push(invoice);
+            })
+        }
+    }
+
+    return invoices;
+}
+
+async function getApprovedContractorInvoices()
+{
+    let quotations = await getQuotation();
+    let length = quotations.length;
+    let invoices = [];
+
+    for(i=0;i<length;i++)
+    {
+        if(quotations[i].quoteApproval == 'APPROVED')
+        {
+            quotations[i].contractor_po.forEach(cpo => {
+                invoices.push(cpo.contractorInvoice);
+            });
+        }
+    }
+
+    return invoices;
+}
+
 module.exports.addQuotation = addQuotation;
 module.exports.deleteQuotation = deleteQuotation;
 module.exports.updateQuotation = updateQuotation;
 module.exports.getQuotation = getQuotation;
+module.exports.getApprovedClientInvoices = getApprovedClientInvoices;
+module.exports.getApprovedContractorInvoices = getApprovedContractorInvoices;
