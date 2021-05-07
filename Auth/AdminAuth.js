@@ -86,7 +86,7 @@ async function getClients(id)
     }
     else
     { 
-        var clients = await Client.find({},'clientID name storeName corporateAddress walletAmount totalOrder totalSales status');
+        var clients = await Client.find({},'clientID name storeName phoneNumber corporateAddress walletAmount totalOrder totalSales status');
         return clients;
     }
     

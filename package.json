@@ -29,5 +29,8 @@
     "sequelize": "^6.5.0",
     "sequelize-auto": "^0.8.0",
     "stripe": "^8.138.0"
+  },
+  "devDependencies": {
+    "localtunnel": "^2.0.1"
   }
 }
