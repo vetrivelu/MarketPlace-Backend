@@ -44,6 +44,20 @@ router.get('/getQuote/:id', async(req, res)=>{
     }
 });
 
+router.get('/getQuoteNumber/:id', async(req, res)=>{
+    console.log("Endpoin hit");
+    var quotation = await Quotation.getQuotationByNumber(req.params.id);
+    if(quotation)
+    {
+        console.log("Product Registered");
+        res.status(200).send(quotation);
+    }
+    else
+    {
+        res.status(500).send(quotation);
+    }
+});
+
 router.get('/getQuote', async(req, res)=>{
     console.log("Endpoin hit");
     var quotation = await Quotation.getQuotation();
@@ -77,7 +91,6 @@ router.get('/getclientInvoices', async(req, res)=>{
     var invoices = await Quotation.getApprovedClientInvoices();
     if(invoices)
     {
-        console.log("Product Registered");
         res.status(200).send(invoices);
     }
     else
@@ -85,6 +98,20 @@ router.get('/getclientInvoices', async(req, res)=>{
         res.status(500).send(invoices);
     }
 });
+
+router.get('/getcontractorInvoices', async(req, res)=>{
+    console.log("Endpoin hit");
+    var invoices = await Quotation.getApprovedContractorInvoices();
+    if(invoices)
+    {
+        res.status(200).send(invoices);
+    }
+    else
+    {
+        res.status(500).send(invoices);
+    }
+});
+
 
 module.exports = router;
 

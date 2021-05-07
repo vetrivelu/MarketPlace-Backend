@@ -4,22 +4,8 @@ async function addQuotation(params)
 {
     const quotation = new Quote(
         {
-            parent_quote    :   params.parent_quote,
             quotation_no    : params.quotation_no,
-            currency    : params.currency,
-            client_id   : params.client_id,
-            client_name :   params.client_name,
-            quote_amt   : params.quote_amt,
-            client_PO   : params.client_PO,
-            Description : params.Description,
-            quoteApproval   :params.quoteApproval,
-            issuedDate  : params.issuedDate,
-            client_invoice  :   params.client_invoice,
             contractor_po   :   params.contractor_po,
-            ccmTicketNUmber :   params.ccmTicketNUmber,
-            jobCompleteDate :   params.jobCompleteDate,
-            margin_percent  :   params.margin_percent,
-            margin_amt  :   params.margin_amt
         }
     );
     const new_quotation = await quotation.save().catch((err) =>{
@@ -72,6 +58,14 @@ async function getQuotation(id)
     }
 }
 
+async function getQuotationByNumber(quotation_no)
+{
+    let quote = await Quote.findOne({
+        quotation_no    :       quotation_no
+    })
+    return quote;
+}
+
 async function getApprovedClientInvoices()
 {
     let quotations = await getQuotation();
@@ -106,7 +100,6 @@ async function getApprovedContractorInvoices()
             });
         }
     }
-
     return invoices;
 }
 
@@ -116,3 +109,4 @@ module.exports.updateQuotation = updateQuotation;
 module.exports.getQuotation = getQuotation;
 module.exports.getApprovedClientInvoices = getApprovedClientInvoices;
 module.exports.getApprovedContractorInvoices = getApprovedContractorInvoices;
+module.exports.getQuotationByNumber = getQuotationByNumber;

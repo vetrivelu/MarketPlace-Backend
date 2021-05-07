@@ -33,6 +33,7 @@ const clientinvoiceSchema = new db.mongoose.Schema({
 },{ _id : false });
 
 const contractorPOSchema = new db.mongoose.Schema({
+  quotation_no  : String,
   contractor_id : { type: Number },
   contractor_name :   String,
   po_amount   :   Number,
@@ -42,33 +43,10 @@ const contractorPOSchema = new db.mongoose.Schema({
   contractorInvoice   :   [contractorInvoiceSchema],
 },{ _id : false });
 
-
 const quoteSchema = new db.mongoose.Schema({
-  parent_quote    :   String,
   quotation_no  : {type :String, required : true},
-  currency  : String,
-  client_id : { type: Number },
-  client_name   :   String,
-  quote_amt  : {type :Number },
-  client_PO  : { type  : String},
-  Description : {type :String},
-  quoteApproval      : {
-    type  : String,
-    enum  : ['REJECTED','PENDING', 'APPROVED', 'CANCELLED'],
-  },
-  issuedDate    : Date,
-  client_invoice    :   {type : [clientinvoiceSchema], sparse :true},
   contractor_po     :   {type : [contractorPOSchema], sparse :true},
-  ccmTicketNUmber : String,
-  jobCompleteDate : Date,
-  margin_percent  : Number,
-  margin_amt  : Number
 });
 
-
-
 module.exports  = db.mongoose.model('Quote', quoteSchema);
-
-
-
 
