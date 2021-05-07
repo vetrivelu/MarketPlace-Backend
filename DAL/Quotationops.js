@@ -93,12 +93,9 @@ async function getApprovedContractorInvoices()
 
     for(i=0;i<length;i++)
     {
-        if(quotations[i].quoteApproval == 'APPROVED')
-        {
             quotations[i].contractor_po.forEach(cpo => {
                 invoices.push(cpo.contractorInvoice);
             });
-        }
     }
     return invoices;
 }
